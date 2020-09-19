@@ -78,7 +78,12 @@ namespace Homework_Theme_03
            
                 Console.Write($"Ввести количество игроков: ");
                 numberOfPlayers = byte.Parse(Console.ReadLine());
-                string[] user = new string[numberOfPlayers]; // игроки
+            while (numberOfPlayers < 2)
+            {
+                Console.WriteLine($"Введите количество игроков как минимум 2:");
+                numberOfPlayers = byte.Parse(Console.ReadLine());
+            }
+            string[] user = new string[numberOfPlayers]; // игроки
                 Console.Clear();
             if (robot == "Д")
             {
@@ -111,8 +116,19 @@ namespace Homework_Theme_03
                     
                         Console.WriteLine($"\nВыбираем диапазон игрового числа\nВведите нижний предел:");
                         gameNumberMin = int.Parse(Console.ReadLine());
-                        Console.WriteLine($"Введите верхний предел предел:");
+                        while (gameNumberMin < 0)
+                        {
+                            Console.WriteLine($"Введите значение нижнего предела, большее 0:");
+                            gameNumberMin = int.Parse(Console.ReadLine());
+                        }
+                         Console.WriteLine($"Введите верхний предел предел:");
                         gameNumberMax = int.Parse(Console.ReadLine());
+                        while (gameNumberMax <= gameNumberMin)
+                        {
+                            Console.WriteLine($"Введите значение верхнего предела предела большее, чем нижний:");
+                            gameNumberMax = int.Parse(Console.ReadLine());
+                        }
+
                         gameNumberMax++;
                         gameNumber = rand.Next(gameNumberMin, gameNumberMax); // Выдаёт случайное число из выбранного диапазона
                         Console.WriteLine($"Число: {gameNumber}");
@@ -123,14 +139,19 @@ namespace Homework_Theme_03
                         if ((i == user.Length - 1) && (user[user.Length - 1] == "Robot"))
                             {
                                 //Console.Write($"Робот вводит число: ");
-                                playerNumber = rand.Next(1, gameNumber+1);
+                                playerNumber = rand.Next(1, 10);
                                 Console.Write($"Робот вводит число: {playerNumber}\n");
                     }
                         else
                             {
                                 Console.Write($"Игрок {user[i]} вводит число: ");
                                 playerNumber = int.Parse(Console.ReadLine());
-                             }
+                         while (playerNumber <=0 || playerNumber > 9)
+                         {
+                            Console.WriteLine($"Введите число в пределах от 1 до 9:");
+                            playerNumber = int.Parse(Console.ReadLine());
+                         }
+                    }
                         if(gameNumber < playerNumber)
                         {
 
